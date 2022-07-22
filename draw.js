@@ -47,7 +47,7 @@ function drawblocks(abubble) {
   rect(abubble.x, abubble.y, abubble.w, abubble.h, "fill");
 }
 function moveblocks(abubble) {
-  abubble.y += randomint(1, 3);
+  abubble.y += abubble.speed;
 }
 
 function position(abubble) {
@@ -65,8 +65,22 @@ function randomblocks() {
   return {
     x: randomint(0, cnv.width),
     y: randomint(0, cnv.height),
-    w: randomint(50, 100),
-    h: randomint(10, 30),
+    w: randomint(60, 100),
+    h: randomint(30, 49),
     color: randrgb(),
+    speed: randomint(1, 3),
   };
+}
+
+document.addEventListener("mousedown", canvasclicked);
+
+function canvasclicked() {
+  for (let a = 0; a < blocks.length; a++) {
+    if (ptInRectangle(mouseX, mouseY, blocks[a])) {
+      console.log("party");
+      blocks[a].y = -5;
+      blocks[a].x = randomint(0, cnv.width);
+      blocks[a].color = randrgb();
+    }
+  }
 }
